@@ -22,7 +22,10 @@ class _ImageInputState extends State<ImageInput> {
       maxHeight: 600,
     );
 
+    if (imagePicked == null) return;
     File imageFile = File(imagePicked.path);
+
+    print(imageFile);
 
     setState(() => _storedImage = imageFile);
 

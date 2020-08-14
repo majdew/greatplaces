@@ -22,7 +22,14 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
 
   void _savePlace() {
     if (_titleController.text.isEmpty || _pickedImage == null) return;
-    Provider.of<Places>(context).addPlace(_titleController.text, _pickedImage);
+    Provider.of<Places>(
+      context,
+      listen: false,
+    ).addPlace(
+      _titleController.text,
+      _pickedImage,
+    );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -56,7 +63,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
             ),
           ),
           RaisedButton.icon(
-            onPressed: () {},
+            onPressed: _savePlace,
             icon: Icon(Icons.add),
             label: Text("Add Place"),
             elevation: 0,
