@@ -15,29 +15,34 @@ class PlacesListScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamed(AddPlaceScreen.routeName);
+              Navigator.of(context).pushNamed(AddPlaceScreen.routeName);
             },
           ),
         ],
       ),
-      body: Consumer<Places>(
-        child: Center(
-          child: const Text("Got no Places Yet , start adding some!"),
-        ),
-        builder: (context, placesData, child) => placesData.places.length <= 0
-            ? child
-            : ListView.builder(
-                itemBuilder: (context, index) => ListTile(
-                  leading: CircleAvatar(
-                   backgroundImage: FileImage(placesData.places[index].image),
-                  ),
-                  title: Text(placesData.places[index].title),
-                  onTap: () {
-                    
-                  },
+      body: FutureBuilder(
+        future: Provider.of<Places>(context, listen: false).fetchAndSetPlaces(),
+        builder: (context, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? CircularProgressIndicator()
+            : Consumer<Places>(
+                child: Center(
+                  child: const Text("Got no Places Yet , start adding some!"),
                 ),
-                itemCount: placesData.places.length,
+                builder: (context, placesData, child) =>
+                    placesData.places.length <= 0
+                        ? child
+                        : ListView.builder(
+                            itemBuilder: (context, index) => ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    FileImage(placesData.places[index].image),
+                              ),
+                              title: Text(placesData.places[index].title),
+                              onTap: () {},
+                            ),
+                            itemCount: placesData.places.length,
+                          ),
               ),
       ),
     );
