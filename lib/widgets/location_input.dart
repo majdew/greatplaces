@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../helpers/location_helper.dart';
@@ -27,7 +28,7 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   Future<void> _onSelectMap() async {
-    final selectedLocation = await Navigator.of(context).push(
+    final selectedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (context) => MapScreen(
@@ -37,6 +38,7 @@ class _LocationInputState extends State<LocationInput> {
     );
 
     if (selectedLocation == null) return;
+
   }
 
   @override
