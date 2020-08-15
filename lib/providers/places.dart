@@ -14,9 +14,9 @@ class Places with ChangeNotifier {
   }
 
   void addPlace(String title, File pickedImage, PlaceLocation location) async {
-    // String address = await LocationHelper.getPlaceAddress(
-    //     location.latitude, location.longitude);
-    String address = "Palestine, Hebron, 1424";
+    String address = await LocationHelper.getPlaceAddress(
+        location.latitude, location.longitude);
+
     final updatedLocation = PlaceLocation(
       latitude: location.latitude,
       longitude: location.longitude,
